@@ -1,0 +1,12 @@
+{
+	"name" : "watch-list",
+	"version" : "0.0.1",
+	"description" : "watch list",
+	"main" : "server.js",
+	"author" : "Viet Nguyen",
+	"dependencies" : {
+		"express" : "latest",
+		"body-parser" : "latest",
+		"x-ray": "latest"
+	}
+}
