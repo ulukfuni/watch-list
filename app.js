@@ -14,15 +14,13 @@ app.controller('MainCtrl', ['$scope', function($scope){
 app.directive('autoComplete', ['$timeout', function($timeout){
     return {
 			restrict: 'A',
-			// scope: {
-			// 	autoComplete: '&'
-			// },
 			link: function(scope, element, attrs) {
         element.autocomplete({
             source: scope[attrs.uiItems],
             select: function(event, ui) {
                 $timeout(function() {
 									scope.Add(ui.item.value);
+									$('#player-input').val('');
                 }, 0);
             }
         });
