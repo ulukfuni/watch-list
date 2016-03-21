@@ -5,7 +5,6 @@ app.controller('MainCtrl', ['$scope', function($scope){
 	$scope.watchList = [];
 	$scope.Add = function(name){
 		$scope.watchList.push(name);
-		console.log($scope.watchList);
 	}
 
 }]);
