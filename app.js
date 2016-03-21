@@ -9,16 +9,23 @@ app.controller('MainCtrl', ['$scope', function($scope){
 	}
 
 }]);
-
+//use service to grab data
+//app.factory('PlayerData', [function(){}]);
 app.directive('autoComplete', ['$timeout', function($timeout){
-    return function(scope, iElement, iAttrs) {
-        iElement.autocomplete({
-            source: scope[iAttrs.uiItems],
-            select: function() {
-                $timeout(function() { console.log(iElement);
-                  iElement.trigger('input');
+    return {
+			restrict: 'A',
+			// scope: {
+			// 	autoComplete: '&'
+			// },
+			link: function(scope, element, attrs) {
+        element.autocomplete({
+            source: scope[attrs.uiItems],
+            select: function(event, ui) {
+                $timeout(function() {
+									scope.Add(ui.item.value);
                 }, 0);
             }
         });
-    };
+    }
+	}
 }]);
