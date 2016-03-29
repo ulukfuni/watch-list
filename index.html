@@ -10,9 +10,10 @@
       <button class="add-player" ng-click="Add(selected)">Add</button>
       <br/>watchList = {{watchList}}
     </div>
-    <div ng-repeat="player in watchList">
-      {{player}}
-    </div>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="player in watchList">
+      {{player}}</li>
+    </ul>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script src="http:///cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
