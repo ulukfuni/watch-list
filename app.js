@@ -7,17 +7,24 @@ app.config(['$httpProvider', function($httpProvider) {
 ]);
 
 app.controller('MainCtrl', ['$scope', 'players', 'playerGameLog', function($scope, players, playerGameLog){
-	$scope.names = ["john", "bill", "charlie", "robert", "alban", "oscar", "marie", "celine", "brad", "drew", "rebecca", "michel", "francis", "jean", "paul", "pierre", "nicolas", "alfred", "gerard", "louis", "albert", "edouard", "benoit", "guillaume", "nicolas", "joseph"];
+	// $scope.names = ["john", "bill", "charlie", "robert", "alban", "oscar", "marie", "celine", "brad", "drew", "rebecca", "michel", "francis", "jean", "paul", "pierre", "nicolas", "alfred", "gerard", "louis", "albert", "edouard", "benoit", "guillaume", "nicolas", "joseph"];
 	$scope.watchList = [];
 	$scope.Add = function(name){
 		$scope.watchList.push(name);
 	}
-	
-	// players.query().then(function(data){
-	// 	console.log(data);
-	// }, function(err){
-	// 	console.log('no data');
-	// });
+
+	players.query().then(function(data){
+    var obj = data.data.resultSets['0'].rowSet;
+    var arr = [];
+		//console.log(typeof data.data.resultSets['0'].rowSet);
+		for(var i in obj){
+      arr.push(obj[i][2]);
+      }
+      console.log(arr);
+    $scope.names = arr;
+	}, function(err){
+		console.log('no data');
+	});
 
 	// playerGameLog.query().then(function(data){
 	// 	console.log(data);	
@@ -78,6 +85,8 @@ app.factory('playerGameLog', ['$http', function($http){
 	return factory;
 }]);
 
+
+// pass in players factory and set to source
 app.directive('autoComplete', ['$timeout', function($timeout){
     return {
 			restrict: 'A',
