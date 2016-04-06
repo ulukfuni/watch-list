@@ -7,7 +7,6 @@ app.config(['$httpProvider', function($httpProvider) {
 ]);
 
 app.controller('MainCtrl', ['$scope', 'players', 'playerGameLog', function($scope, players, playerGameLog){
-	// $scope.names = ["john", "bill", "charlie", "robert", "alban", "oscar", "marie", "celine", "brad", "drew", "rebecca", "michel", "francis", "jean", "paul", "pierre", "nicolas", "alfred", "gerard", "louis", "albert", "edouard", "benoit", "guillaume", "nicolas", "joseph"];
 	$scope.watchList = [];
 	$scope.Add = function(name){
 		$scope.watchList.push(name);
@@ -20,7 +19,6 @@ app.controller('MainCtrl', ['$scope', 'players', 'playerGameLog', function($scop
 		for(var i in obj){
       arr.push(obj[i][2]);
       }
-      console.log(arr);
     $scope.names = arr;
 	}, function(err){
 		console.log('no data');
@@ -87,6 +85,9 @@ app.factory('playerGameLog', ['$http', function($http){
 
 
 // pass in players factory and set to source
+// http://stackoverflow.com/questions/9656523/jquery-autocomplete-with-callback-ajax-json
+// http://www.sitepoint.com/api-calls-angularjs-http-service/
+// ^^^ use this(first one) for actually calling the service into the source option of the autocomplete
 app.directive('autoComplete', ['$timeout', function($timeout){
     return {
 			restrict: 'A',
