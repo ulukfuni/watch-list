@@ -93,12 +93,9 @@ app.directive('autoComplete', ['$timeout', function($timeout){
 			link: function(scope, element, attrs) {
         element.autocomplete({
             source: function(req, res){
-            	var arr = scope.names,
-            	newArr;
-            	newArr = arr.filter(function(value, index, arr){
+				res(scope.names.filter(function(value, index, arr){
 					return value.toLowerCase().includes(req.term.toLowerCase());
-				});
-				res(newArr);
+				}));
         	},
             select: function(event, ui) {
                 $timeout(function() {
