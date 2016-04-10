@@ -16,12 +16,10 @@ app.controller('MainCtrl', ['$scope', 'players', 'playerGameLog', function($scop
     var obj = data.data.resultSets['0'].rowSet;
     var arr = [];
 		//console.log(typeof data.data.resultSets['0'].rowSet);
-		for(var i in obj){
+	for(var i in obj){
       arr.push(obj[i][2]);
-      }
+     }
     $scope.names = arr;
-	}, function(err){
-		console.log('no data');
 	});
 
 	// playerGameLog.query().then(function(data){
@@ -91,9 +89,17 @@ app.factory('playerGameLog', ['$http', function($http){
 app.directive('autoComplete', ['$timeout', function($timeout){
     return {
 			restrict: 'A',
+			scope: '=',
 			link: function(scope, element, attrs) {
         element.autocomplete({
-            source: scope[attrs.uiItems],
+            source: function(req, res){
+            	var arr = scope.names,
+            	newArr;
+            	newArr = arr.filter(function(value, index, arr){
+					return value.toLowerCase().includes(req.term.toLowerCase());
+				});
+				res(newArr);
+        	},
             select: function(event, ui) {
                 $timeout(function() {
 									scope.Add(ui.item.value);

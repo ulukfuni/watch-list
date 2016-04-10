@@ -6,7 +6,7 @@
   </head>
   <body ng-app="watchList" ng-controller="MainCtrl">
     <div class="form-group jumbotron">
-      <input id="player-input" auto-complete ui-items="names" ng-model="selected"/>
+      <input type="text" placeholder="Enter player name..." id="player-input" auto-complete ui-items="names" ng-model="selected"/>
       <button class="add-player" ng-click="Add(selected)">Add</button>
       <br/>watchList = {{watchList}}
     </div>
