@@ -1,11 +1,7 @@
 'use strict';
 var app = angular.module('watchList', []);
-app.config(['$httpProvider', function($httpProvider) {
-  $httpProvider.defaults.useXDomain = true;
-  delete $httpProvider.defaults.headers.common['X-Requested-With'];
-}]);
 
-app.controller('MainCtrl', ['$scope', 'players', 'getPlayerGameLog', function($scope, players, getPlayerGameLog) {
+app.controller('MainCtrl', ['$scope', 'players', '$http', function($scope, players, $http) {
   $scope.watchList = [];
   $scope.Add = function(name) {
     $scope.watchList.push(name);
@@ -14,16 +10,6 @@ app.controller('MainCtrl', ['$scope', 'players', 'getPlayerGameLog', function($s
     $scope.names = data;
   });
 
-  getPlayerGameLog.query().then(function(data) {
-    var arr = [];
-    for (var i in data) {
-      if (i < 5) {
-        arr.push(data[i]);
-      }
-    }
-    console.log(arr);
-    $scope.gameLogsFive = arr;
-  });
 }]);
 
 //use service to grab list of active players
@@ -45,33 +31,6 @@ app.factory('players', ['$http', function($http) {
             arr.push(obj[i][2]);
           }
           return arr;
-        },
-        function(result) {
-          console.log('error: no data');
-        });
-      return data;
-    }
-  }
-  return factory;
-}]);
-
-//service for grab a specified players game logs
-//TODO: place player name into this function and spit out player data, also specify how many games to grab, limit 40
-app.factory('getPlayerGameLog', ['$http', function($http) {
-  var playerName = 'goran-dragic';
-  var config = {
-    url: 'https://www.stattleship.com/basketball/nba/game_logs?player_id=nba-' + playerName,
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Token token=371939afa66fa11f4d1095251c7c9f65',
-      'Accept': 'application/vnd.stattleship.com; version=1'
-    }
-  };
-  var factory = {
-    query: function() {
-      var data = $http(config).then(function(result) {
-          return result.data.game_logs;
         },
         function(result) {
           console.log('error: no data');
@@ -108,14 +67,36 @@ app.directive('autoComplete', ['$timeout', function($timeout) {
     }
   }
 }]);
-
-//might have to put player game log service in this directive
-app.directive('playerGameLog', [function() {
+//http://stackoverflow.com/questions/16839259/angular-calling-controller-function-inside-a-directive-link-function-using
+//link function to directive
+app.directive('gameLogs', ['$http', function($http) {
   return {
     restrict: 'E',
     templateUrl: 'game-logs.html',
-    controller: ['getPlayerGameLog', '$scope' function(getPlayerGameLog, $scope){
-    	
-    }]
+    scope: {},
+    link: function(scope, element, attrs) {
+      var playerName = attrs.player;
+      scope.getGameLog = function() {
+        var config = {
+          url: 'https://www.stattleship.com/basketball/nba/game_logs?player_id=nba-' + playerName.replace(' ', '-').toLowerCase(),
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Token token=371939afa66fa11f4d1095251c7c9f65',
+            'Accept': 'application/vnd.stattleship.com; version=1'
+          }
+        };
+        $http(config).then(function(result) {
+          var obj = result.data.game_logs;
+          var arr = [];
+          for (var i in obj) {
+            if (i < 5) {
+              arr.push(obj[i]);
+            }
+          }
+          scope.gameLogsFive = arr;
+        });
+      };
+    }
   }
 }]);

@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive" ng-click="getGameLog()">
   <table class="table">
     <thead>
       <tr>
@@ -16,8 +16,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="game in games">
-        <td><!-- index --></td>
+      <tr ng-repeat="game in gameLogsFive">
+        <td>
+          <!-- index -->
+        </td>
         <td>{{game.field_goals_made}} / {{game.field_goals_attempted}}</td>
         <td>{{game.free_throws_made}} / {{game.free_throws_attempted}}</td>
         <td>{{game.three_pointers_made}} / {{game.three_pointers_attempted}}</td>
@@ -27,7 +29,8 @@
         <td>{{game.steals}}</td>
         <td>{{game.blocks}}</td>
         <td>{{game.turnovers}}</td>
-        <td>{{game.time_played_total}}</td><!-- TODO: make filter for this, divide by 60 to get minutes -->
+        <td>{{game.time_played_total}}</td>
+        <!-- TODO: make filter for this, divide by 60 to get minutes -->
       </tr>
     </tbody>
   </table>
