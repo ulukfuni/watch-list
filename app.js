@@ -69,7 +69,7 @@ app.directive('autoComplete', ['$timeout', function($timeout) {
 }]);
 //http://stackoverflow.com/questions/16839259/angular-calling-controller-function-inside-a-directive-link-function-using
 //link function to directive
-app.directive('gameLogs', ['$http', 'mintuesFilter', function($http, minutes) {
+app.directive('gameLogs', ['$http', function($http) {
   return {
     restrict: 'E',
     templateUrl: 'game-logs.html',
@@ -100,9 +100,8 @@ app.directive('gameLogs', ['$http', 'mintuesFilter', function($http, minutes) {
     }
   }
 }]);
-//http://stackoverflow.com/questions/15136504/using-filters-with-directives-in-angularjs
-app.filter('mintues', function(){
-  return function(input){
-    return input / 60;
-  };
-});
+app.filter('secondsToDateTime', [function() {
+    return function(seconds) {
+        return new Date(1970, 0, 1).setSeconds(seconds);
+    };
+}])

@@ -29,7 +29,7 @@
         <td>{{game.steals}}</td>
         <td>{{game.blocks}}</td>
         <td>{{game.turnovers}}</td>
-        <td>{{game.time_played_total | minutes}}</td>
+        <td>{{game.time_played_total | secondsToDateTime | date:'mm:ss'}}</td>
         <!-- TODO: make filter for this, divide by 60 to get minutes -->
       </tr>
     </tbody>
