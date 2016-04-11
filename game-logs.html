@@ -12,6 +12,8 @@
         <th>Steals</th>
         <th>Blocks</th>
         <th>Turnovers</th>
+        <th>Plus/Minus</th>
+        <th>Fouls</th>
         <th>Minutes</th>
       </tr>
     </thead>
@@ -29,8 +31,9 @@
         <td>{{game.steals}}</td>
         <td>{{game.blocks}}</td>
         <td>{{game.turnovers}}</td>
+        <td>{{game.plus_minus}}</td>
+        <td>{{game.personal_fouls}}</td>
         <td>{{game.time_played_total | secondsToDateTime | date:'mm:ss'}}</td>
-        <!-- TODO: make filter for this, divide by 60 to get minutes -->
       </tr>
     </tbody>
   </table>
