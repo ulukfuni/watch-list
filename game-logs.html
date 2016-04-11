@@ -3,17 +3,31 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
+        <th>Field Goals</th>
+        <th>Free Throws</th>
+        <th>3Pointers</th>
+        <th>Points</th>
+        <th>Rebounds</th>
+        <th>Assists</th>
+        <th>Steals</th>
+        <th>Blocks</th>
+        <th>Turnovers</th>
+        <th>Minutes</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="game in games">
-        <td></td>
+        <td><!-- index --></td>
+        <td>{{game.field_goals_made}} / {{game.field_goals_attempted}}</td>
+        <td>{{game.free_throws_made}} / {{game.free_throws_attempted}}</td>
+        <td>{{game.three_pointers_made}} / {{game.three_pointers_attempted}}</td>
+        <td>{{game.points}}</td>
+        <td>{{game.rebounds_total}}</td>
+        <td>{{game.assists}}</td>
+        <td>{{game.steals}}</td>
+        <td>{{game.blocks}}</td>
+        <td>{{game.turnovers}}</td>
+        <td>{{game.time_played_total}}</td><!-- TODO: make filter for this, divide by 60 to get minutes -->
       </tr>
     </tbody>
   </table>
