@@ -78,7 +78,7 @@ app.directive('gameLogs', ['$http', function($http) {
       var playerName = attrs.player;
       scope.getGameLog = function() {
         var config = {
-          url: 'https://www.stattleship.com/basketball/nba/game_logs?player_id=nba-' + playerName.replace(' ', '-').toLowerCase(),
+          url: 'https://www.stattleship.com/basketball/nba/game_logs?interval_type=regularseason&player_id=nba-' + playerName.replace(' ', '-').toLowerCase(),
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
